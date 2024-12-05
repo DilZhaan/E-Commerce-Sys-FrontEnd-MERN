@@ -28,4 +28,4 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/e-commerce-frontend-mern:latest:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/e-commerce-frontend-mern:latest
