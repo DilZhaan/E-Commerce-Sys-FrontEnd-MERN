@@ -62,6 +62,7 @@ Here are some resources I found invaluable during the development of this projec
 - [Node JS Tutorial for Beginners - Telusko](https://www.youtube.com/watch?v=yEHCfRWz-EI&list=PLsyeobzWxl7occsESx2X1E2R2Uw5wCoeG)
 - [React Hooks in ONE Video 2022 [ EASIEST Explanation ] | React JS Tutorial - Code Bless You](https://www.youtube.com/watch?v=HnXPKtro4SM)
 - [Firebase React Course For Beginners - Learn Firebase V9+ in 2 Hours - PedroTech](https://www.youtube.com/watch?v=2hR-uWjBAgw)
+- [Docker -Tech World with Nana](https://www.youtube.com/watch?v=pg19Z8LL06w&ab_channel=TechWorldwithNana)
 
 Feel free to explore these resources to enhance your learning!
 
