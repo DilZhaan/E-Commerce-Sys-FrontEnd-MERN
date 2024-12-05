@@ -24,8 +24,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/E-Commerce-FrontEnd-MERN:latest .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/e-commerce-frontend-mern:latest .
 
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/E-Commerce-FrontEnd-MERN:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/e-commerce-frontend-mern:latest:latest
