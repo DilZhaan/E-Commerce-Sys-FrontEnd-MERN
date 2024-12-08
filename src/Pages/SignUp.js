@@ -1,46 +1,84 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SignUpIcon from '../assest/signin.gif'
+import imageToBase64 from '../helpers/imageToBase64'
+import summaryAPI from '../common'
+import { toast } from 'react-toastify'
 
 const SignUp = () => {
+  const navigate = useNavigate()
   const pwd = {
-    pattern : '(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?!.* ).{8,16}',
-    err : "Password must be 8 to 16 characters long, include at least one lowercase letter, one uppercase letter, one digit, one special character, and no spaces.",
+    pattern: '(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?!.* ).{8,16}',
+    err: "Password must be 8 to 16 characters long, include at least one lowercase letter, one uppercase letter, one digit, one special character, and no spaces.",
   }
 
-  const [user,setUser] = useState({
-    proPic:"",
-    fName:"",
-    lName:"",
-    address:"",
-    dob:"",
-    gender:"",
-    email:"",
-    pwd:"",
-    cPwd:"",
+  const [user, setUser] = useState({
+    proPic: "",
+    fName: "",
+    lName: "",
+    address: "",
+    dob: "",
+    gender: "",
+    email: "",
+    pwd: "",
+    cPwd: "",
   })
-  const [pwdMatch,setpwdMatch] = useState(null);
+  const [pwdMatch, setpwdMatch] = useState(null);
 
   const updateUserHandler = (e) => {
-    const {name,value} = e.target
-    setUser( prev => {
-        return{
+    const { name, value } = e.target
+    setUser(prev => {
+      return {
         ...prev,
-        [name] : value
-        }
+        [name]: value
       }
+    }
     )
   }
 
-  const handleUploadPic = e => {
-    const file = e.target.files[0]
-    console.log(file);
+  const handleSubmit = async e => {
+    e.preventDefault()
+    const dataResponse = await fetch(summaryAPI.signUp.url, {
+      method: summaryAPI.signUp.method,
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(user),
+    })
+    console.log(user);
+    
+
+    const dataAPI = await dataResponse.json()
+    
+    if (dataAPI.success){
+      toast.success(dataAPI.message)
+      navigate("/login")
+    }
+    if(dataAPI.error){
+      toast.error(dataAPI.message)
+    }
   }
-  
-  const pwdChecker = useEffect(()=>{
-    if(!user.cPwd || !user.pwd) return (setpwdMatch(""));
-    setpwdMatch((user.pwd === user.cPwd)? "Password Matched!" : "Password unMatched!")
-  },[user.cPwd,user.pwd])
+
+  const handleUploadPic = async e => {
+    const file = e.target.files[0]
+
+    const imagePic = await imageToBase64(file)
+    setUser(prev => {
+      return {
+        ...prev,
+        proPic: imagePic
+      }
+    }
+    )
+  }
+  useEffect(() => {
+    if (!user.cPwd || !user.pwd) return (setpwdMatch(""));
+    setpwdMatch((user.pwd === user.cPwd) ? "Password Matched!" : "Password unMatched!")
+    const submitButton = document.getElementById('submit');
+    if (submitButton) {
+      submitButton.disabled = user.pwd !== user.cPwd; // Disable if passwords don't match
+    }
+  }, [user.cPwd, user.pwd])
 
   return (
     <section id='SignUp'>
@@ -50,72 +88,72 @@ const SignUp = () => {
 
           <div className='relative w-20 h-20 mx-auto overflow-hidden rounded-full'>
             <div>
-              <img src={SignUpIcon} alt='Sign Up Logo' />
+              <img src={user.proPic || SignUpIcon} alt='Sign Up Logo' />
             </div>
             <form>
               <label>
                 <div className='absolute bottom-0 w-full py-4 text-xs text-center rounded-b-full cursor-pointer bg-slate-200 bg-opacity-80'>
                   Upload
                 </div>
-              <input
-                type='file'
-                accept='image/gif, image/jpeg, image/png'
-                title='Please upload a valid image file (GIF, JPG, or PNG).'
-                className="hidden"  
-                onChange={handleUploadPic}
-              />
+                <input
+                  type='file'
+                  accept='image/gif, image/jpeg, image/png'
+                  title='Please upload a valid image file (GIF, JPG, or PNG).'
+                  className="hidden"
+                  onChange={handleUploadPic}
+                />
               </label>
             </form>
           </div>
           <div>
-            <form className='space-y-3'>
+            <form className='space-y-3' onSubmit={handleSubmit}>
 
               <div className='block'>
                 <label htmlFor='fName'>First Name : </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id='fName'
-                  placeholder='First Name' 
-                  name='fName' 
-                  onChange={updateUserHandler} 
-                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md ' 
+                  placeholder='First Name'
+                  name='fName'
+                  onChange={updateUserHandler}
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md '
                   required
                 />
               </div>
 
               <div className='block'>
                 <label htmlFor='lName'>Last Name : </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id='lName'
-                  placeholder='Last Name' 
-                  name='lName' 
-                  onChange={updateUserHandler} 
-                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md ' 
-                  required 
+                  placeholder='Last Name'
+                  name='lName'
+                  onChange={updateUserHandler}
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md '
+                  required
                 />
               </div>
-              
+
               <div className='block'>
                 <label htmlFor='address'>Address : </label>
                 <input
-                  type = "text" 
-                  id = 'address'placeholder='Address' 
-                  name = 'address' 
-                  onChange = {updateUserHandler} 
-                  className = 'w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md '  
-                  required 
+                  type="text"
+                  id='address' placeholder='Address'
+                  name='address'
+                  onChange={updateUserHandler}
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md '
+                  required
                 />
               </div>
 
               <div className='block'>
                 <label htmlFor='dob'>Date of Birth : </label>
-                <input 
-                  type = "Date" 
-                  id = 'dob' 
-                  name = 'dob' 
-                  onChange = {updateUserHandler} 
-                  className = 'w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md ' 
+                <input
+                  type="Date"
+                  id='dob'
+                  name='dob'
+                  onChange={updateUserHandler}
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md '
                   required
                 />
               </div>
@@ -123,74 +161,74 @@ const SignUp = () => {
               <div className='flex items-center space-x-7'>
                 <label htmlFor='gender'>Gender : </label>
                 <div className='space-x-3'>
-                   <input 
-                    type = "Radio" 
-                    id = 'Male' 
-                    value = "Male" 
-                    name = 'gender' 
-                    onChange = {updateUserHandler} 
-                    required 
-                   />
-                   <label htmlFor='Male'>Male</label>
+                  <input
+                    type="Radio"
+                    id='Male'
+                    value="Male"
+                    name='gender'
+                    onChange={updateUserHandler}
+                    required
+                  />
+                  <label htmlFor='Male'>Male</label>
                 </div>
                 <div className='space-x-3'>
-                    <input 
-                      type = "Radio" 
-                      id = 'Female' 
-                      value = "Female" 
-                      name = 'gender' 
-                      onChange = {updateUserHandler} 
-                      required
-                    />
-                   <label htmlFor='Female'>Female</label>
+                  <input
+                    type="Radio"
+                    id='Female'
+                    value="Female"
+                    name='gender'
+                    onChange={updateUserHandler}
+                    required
+                  />
+                  <label htmlFor='Female'>Female</label>
 
                 </div>
               </div>
 
               <div className='block'>
                 <label htmlFor='email'>Email : </label>
-                <input 
-                  type = "email" 
-                  id = 'email'
-                  placeholder = 'Email' 
-                  onChange = {updateUserHandler} 
-                  className = 'w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md ' 
-                  name = 'email' 
-                  required 
+                <input
+                  type="email"
+                  id='email'
+                  placeholder='Email'
+                  onChange={updateUserHandler}
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md '
+                  name='email'
+                  required
                 />
               </div>
 
               <div className='w-full'>
                 <label htmlFor='pwd'>Password : </label>
-                <input 
-                  type="password" 
-                  id = 'pwd' 
-                  name = 'pwd' 
-                  onChange = {updateUserHandler} 
-                  className = 'w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md' 
-                  pattern = {pwd.pattern} 
-                  placeholder = 'Password'
-                  title = {pwd.err}
-                  required 
+                <input
+                  type="password"
+                  id='pwd'
+                  name='pwd'
+                  onChange={updateUserHandler}
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md'
+                  pattern={pwd.pattern}
+                  placeholder='Password'
+                  title={pwd.err}
+                  required
                 />
               </div>
 
               <div className='w-full'>
                 <label htmlFor='cPwd'>Confirm Password : </label>
-                <input 
-                  type = "password" 
-                  id = 'cPwd' 
-                  name = 'cPwd' 
-                  onChange = {updateUserHandler} 
-                  className = 'w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md '  
-                  placeholder = 'Password' 
-                  required 
+                <input
+                  type="password"
+                  id='cPwd'
+                  name='cPwd'
+                  onChange={updateUserHandler}
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md '
+                  placeholder='Password'
+                  required
                 />
               </div>
 
               <div className='w-full'>
-                <label 
-                  htmlFor='pwdMatched' 
+                <label
+                  htmlFor='pwdMatched'
                   className="block ml-auto font-semibold text-red-800 w-fit"
                 >
                   {pwdMatch}
@@ -199,11 +237,11 @@ const SignUp = () => {
               </div>
 
               <div className='container mt-7 bg-violet-700 p-1 rounded-3xl w-[calc(100%-30px)] flex mx-auto items-center justify-center text-white font-bold text-2xl hover:bg-violet-600 focus-within:bg-violet-500'>
-                <button 
-                  type="submit" 
-                  id='submit' 
-                  name='submit' 
-                  className='rounded-3xl border-white-300 w-full py-2.5 border-2 ' 
+                <button
+                  type="submit"
+                  id='submit'
+                  name='submit'
+                  className='rounded-3xl border-white-300 w-full py-2.5 border-2 '
                 >
                   Sign Up
                 </button>

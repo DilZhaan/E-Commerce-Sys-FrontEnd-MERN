@@ -23,6 +23,8 @@ jobs:
         password: ${{ secrets.DOCKER_TOKEN }}
 
     - name: Build Docker image
+      env:
+          FIREBASE_CONFIG_API: ${{ secrets.FIREBASE_CONFIG_API }}
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/E-Commerce-FrontEnd-MERN:latest .
 

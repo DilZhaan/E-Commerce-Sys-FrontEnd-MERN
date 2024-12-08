@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import summaryAPI from '../common/index.js'
+import { toast } from 'react-toastify'
+
 
 const Login = () => {
+  const navigate = useNavigate()
+  
   const [data,SetData] = useState({
     email:"",
     pwd:"",
@@ -17,8 +22,26 @@ const Login = () => {
     })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
+
+    const dataResponse = await fetch(summaryAPI.SignIn.url,{
+      method:summaryAPI.SignIn.method,
+      credentials:'include',
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify(data)
+    })
+    const dataAPI = await dataResponse.json()
+    
+    if (dataAPI.success){
+      toast.success(dataAPI.message)
+      navigate("/")
+    }
+    if(dataAPI.error){
+      toast.error(dataAPI.message)
+    }
   }
 
   return (
@@ -36,7 +59,7 @@ const Login = () => {
                   type="email" 
                   id='email'
                   placeholder='Email' 
-                  className='outline-none rounded-md bg-white w-full p-2 border broder-black focus-within:shadow-md ' 
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md ' 
                   name='email'
                   onChange={handleOnChange}
                   required
@@ -48,14 +71,14 @@ const Login = () => {
                 <input 
                   type="password" 
                   id='pwd' name='pwd' 
-                  className='outline-none  rounded-md bg-white w-full p-2 border broder-black focus-within:shadow-md ' placeholder='Password' 
+                  className='w-full p-2 bg-white border rounded-md outline-none broder-black focus-within:shadow-md ' placeholder='Password' 
                   onChange={handleOnChange}
                   required
                 />
               </div>
 
               <div>
-                <Link to="/fogotPassword" className='underline text-blue-600 block w-fit ml-auto hover:text-blue-500'>Forgot Password?</Link>
+                <Link to="/fogotPassword" className='block ml-auto text-blue-600 underline w-fit hover:text-blue-500'>Forgot Password?</Link>
               </div>
 
               <div className='container mt-7 bg-violet-700 p-1 rounded-3xl w-[calc(100%-30px)] flex mx-auto items-center justify-center text-white font-bold text-2xl hover:bg-violet-600 focus-within:bg-violet-500'>
@@ -72,7 +95,7 @@ const Login = () => {
               </div>
 
               <div>
-                <span>Don't have an account? </span><Link to="/SignUp" className='underline text-blue-600 hover:text-blue-500'>Sign Up</Link>
+                <span>Don't have an account? </span><Link to="/SignUp" className='text-blue-600 underline hover:text-blue-500'>Sign Up</Link>
               </div>
 
             </form>
