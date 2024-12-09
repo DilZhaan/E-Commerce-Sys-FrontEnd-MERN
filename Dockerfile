@@ -1,11 +1,13 @@
-FROM node:22.11.0
+FROM node:22-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY package*.json ./
 
 RUN npm install
 
-EXPOSE 3000
+COPY . .
+
+EXPOSE 5173
 
 CMD ["npm", "start"]
