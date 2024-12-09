@@ -9,6 +9,10 @@ const summaryAPI = {
         url:`${backEndDomain}/api/SignIn`,
         method: "post",
     },
+    CurrentUser:{
+        url:`${backEndDomain}/api/user-details`,
+        method: "get",
+    },
 }
 
 export default summaryAPI
