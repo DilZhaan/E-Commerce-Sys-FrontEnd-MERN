@@ -4,12 +4,11 @@ import summaryAPI from '../common/index.jsx';
 import { toast } from 'react-toastify';
 import Context  from '../contexts';
 
-const Login = () => {  
-  const {fetchUserDetails} = useContext(Context);
-
-
+const Login = () => {
+  
   const navigate = useNavigate();
-
+  const fetchUser = useContext(Context);
+  
   const [data, setData] = useState({
     email: "",
     pwd: "",
@@ -39,7 +38,7 @@ const Login = () => {
 
       if (dataAPI.success) {
         toast.success(dataAPI.message);
-        fetchUserDetails();
+        fetchUser()
         navigate('/');
       } else if (dataAPI.error) {
         toast.error(dataAPI.message);

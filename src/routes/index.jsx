@@ -26,6 +26,10 @@ const router = createBrowserRouter([
                 path : "/FogotPassword",
                 element : <ForgotPwd/>
             },
+            {
+                path : "/FogotPassword",
+                element : <ForgotPwd/>
+            },
         ]
     }
 ])
