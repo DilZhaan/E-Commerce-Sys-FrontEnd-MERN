@@ -28,7 +28,7 @@ const ProductFeedback = ({ productId }) => {
   // For debugging
   console.log("Auth state in ProductFeedback:", { isAuthenticated, user });
   
-  const API_BASE_URL = 'http://localhost:4000/api/feedback';
+  const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api/feedback`;
 
   // Fetch feedbacks and rating summary
   useEffect(() => {
@@ -387,7 +387,7 @@ const ProductFeedback = ({ productId }) => {
                       <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
                         {feedback.userId?.proPic ? (
                           <img 
-                            src={`http://localhost:4000/${feedback.userId.proPic}`} 
+                            src={`${process.env.REACT_APP_API_URL}/${feedback.userId.proPic}`} 
                             alt={`${feedback.userId.fName} ${feedback.userId.lName}`}
                             className="w-full h-full rounded-full object-cover"
                           />

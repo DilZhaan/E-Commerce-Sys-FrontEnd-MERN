@@ -32,7 +32,7 @@ const Payments = () => {
           return;
         }
         
-        const response = await axios.get('http://localhost:4000/api/payments', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/payments`, {
           withCredentials: true
         });
         
@@ -79,7 +79,7 @@ const Payments = () => {
       setProcessingAction(true);
       
       const response = await axios.put(
-        `http://localhost:4000/api/payments/${paymentId}/status`,
+        `${process.env.REACT_APP_API_URL}/api/payments/${paymentId}/status`,
         { status: newStatus },
         { withCredentials: true }
       );

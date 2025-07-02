@@ -18,7 +18,7 @@ const Pagination = ({ products, totalProducts, currentPage, onPageChange, itemsP
         _id: product._id,
         productName: product.name,
         img: product.images && product.images.length > 0 
-          ? `http://localhost:4000/${product.images[0]}` 
+          ? `${process.env.REACT_APP_API_URL}/${product.images[0]}` 
           : "https://via.placeholder.com/150",
         price: product.salePrice,
         color: product.inventoryItem?.brandName || 'Shop Product',
@@ -32,7 +32,7 @@ const Pagination = ({ products, totalProducts, currentPage, onPageChange, itemsP
         _id: product._id,
         productName: product.name,
         img: product.images && product.images.length > 0 
-          ? `http://localhost:4000/${product.images[0]}` 
+          ? `${process.env.REACT_APP_API_URL}/${product.images[0]}` 
           : "https://via.placeholder.com/150",
         price: product.price,
         color: product.category,

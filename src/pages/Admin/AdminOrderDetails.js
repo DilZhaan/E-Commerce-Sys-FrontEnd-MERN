@@ -30,7 +30,7 @@ const AdminOrderDetails = () => {
           // Fetch payment details for this order
           try {
             // Get payment for this specific order
-            const paymentResponse = await axios.get(`http://localhost:4000/api/payments`, {
+            const paymentResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/payments`, {
               withCredentials: true
             });
             
@@ -423,7 +423,7 @@ const AdminOrderDetails = () => {
                 </label>
                 <button
                   onClick={() => {
-                    window.open(`http://localhost:4000/api/payments/${payment._id}/receipt`, '_blank');
+                    window.open(`${process.env.REACT_APP_API_URL}/api/payments/${payment._id}/receipt`, '_blank');
                   }}
                   className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 flex items-center justify-center w-full"
                 >

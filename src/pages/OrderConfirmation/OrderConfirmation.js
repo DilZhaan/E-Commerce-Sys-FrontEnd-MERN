@@ -17,7 +17,7 @@ const OrderConfirmation = () => {
     const fetchOrderDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:4000/api/orders/${orderId}`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -182,7 +182,7 @@ const OrderConfirmation = () => {
               const itemImage = item.image || (item.product && item.product.images && item.product.images[0]);
               const imageUrl = itemImage && itemImage.startsWith('http') 
                 ? itemImage 
-                : `http://localhost:4000${itemImage}`;
+                : `${process.env.REACT_APP_API_URL}${itemImage}`;
 
               return (
                 <div className="order-item" key={index}>

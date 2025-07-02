@@ -51,7 +51,7 @@ const ItemCard = ({ item }) => {
         />
         <img 
           className="w-32 h-32" 
-          src={`http://localhost:4000/${item.product.images[0]}`} 
+          src={`${process.env.REACT_APP_API_URL}/${item.product.images[0]}`} 
           alt={item.product.name} 
         />
         <h1 className="font-titleFont font-semibold">{item.product.name}</h1>

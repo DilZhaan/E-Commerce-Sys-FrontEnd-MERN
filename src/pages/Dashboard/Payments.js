@@ -25,8 +25,8 @@ const Payments = () => {
     try {
       setLoading(true);
       setConnectionError(false);
-      console.log("Fetching payments from:", 'http://localhost:4000/api/payments/my-payments');
-      const response = await axios.get('http://localhost:4000/api/payments/my-payments', {
+      console.log("Fetching payments from:", `${process.env.REACT_APP_API_URL}/api/payments/my-payments`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/payments/my-payments`, {
         withCredentials: true
       });
       
@@ -119,7 +119,7 @@ const Payments = () => {
         
         // Fallback to direct API call if the route doesn't work
         const link = document.createElement('a');
-        link.href = `http://localhost:4000/api/payments/${paymentId}/receipt`;
+        link.href = `${process.env.REACT_APP_API_URL}/api/payments/${paymentId}/receipt`;
         
         // Add auth cookies to the request by setting this attribute
         link.setAttribute('target', '_blank');

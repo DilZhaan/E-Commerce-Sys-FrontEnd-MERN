@@ -69,7 +69,7 @@ const HeaderBottom = () => {
       if (searchQuery.trim().length > 0) {
         setIsSearching(true);
         
-        axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/products/search?q=${encodeURIComponent(searchQuery)}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/products/search?q=${encodeURIComponent(searchQuery)}`)
           .then(response => {
             setSearchResults(response.data.products);
             setIsSearching(false);
@@ -136,7 +136,7 @@ const HeaderBottom = () => {
                     >
                       <img 
                         className="w-24 h-24 object-contain p-2" 
-                        src={item.images && item.images.length > 0 ? "http://localhost:4000/"+item.images[0] : "/images/no-image.png"} 
+                        src={item.images && item.images.length > 0 ? `${process.env.REACT_APP_API_URL}/`+item.images[0] : "/images/no-image.png"} 
                         alt={item.name} 
                       />
                       <div className="flex flex-col gap-1">

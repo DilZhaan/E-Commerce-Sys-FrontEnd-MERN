@@ -41,7 +41,7 @@ const UserManagement = () => {
   // Get today's date for date validation
   const today = new Date().toISOString().split('T')[0];
 
-  const BACKEND_URL = "http://localhost:4000";
+  const BACKEND_URL = process.env.REACT_APP_API_URL;
   const API_URL = BACKEND_URL + "/api/users/admin";
 
   useEffect(() => {

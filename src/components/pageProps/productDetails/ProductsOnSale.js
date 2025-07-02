@@ -10,7 +10,7 @@ const ProductsOnSale = ({ products = [] }) => {
       price: product.price,
       discount: product.discount || 0,
       img: product.images && product.images.length > 0
-        ? `http://localhost:4000/${product.images[0]}`
+        ? `${process.env.REACT_APP_API_URL}/${product.images[0]}`
         : "https://via.placeholder.com/100",
       category: product.category
     }));

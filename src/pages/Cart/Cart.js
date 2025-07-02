@@ -80,20 +80,20 @@ const Cart = () => {
       const imagePath = product.images[0];
       return imagePath.startsWith('http') 
         ? imagePath 
-        : `http://localhost:4000/${imagePath}`;
+        : `${process.env.REACT_APP_API_URL}/${imagePath}`;
     }
     
     if (product.imageUrls && product.imageUrls.length > 0) {
       const imagePath = product.imageUrls[0];
       return imagePath.startsWith('http') 
         ? imagePath 
-        : `http://localhost:4000/${imagePath}`;
+        : `${process.env.REACT_APP_API_URL}/${imagePath}`;
     }
     
     if (product.image) {
       return product.image.startsWith('http')
         ? product.image
-        : `http://localhost:4000/${product.image}`;
+        : `${process.env.REACT_APP_API_URL}/${product.image}`;
     }
     
     return '/placeholder-image.png';

@@ -50,7 +50,7 @@ const Payment = () => {
         setLoading(true);
         
         // First try to get the order details directly from orders API
-        const response = await axios.get(`http://localhost:4000/api/orders/${orderId}`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`, {
           withCredentials: true
         });
         
@@ -350,12 +350,12 @@ const Payment = () => {
             }
           };
           
-          console.log("Sending card payment request to:", `http://localhost:4000/api/payments/card`);
+          console.log("Sending card payment request to:", `${process.env.REACT_APP_API_URL}/api/payments/card`);
           console.log("Request data:", JSON.stringify(cardPaymentRequest, null, 2));
           
           // Process card payment
           const cardResponse = await axios.post(
-            `http://localhost:4000/api/payments/card`,
+            `${process.env.REACT_APP_API_URL}/api/payments/card`,
             cardPaymentRequest,
             { 
               withCredentials: true,
@@ -441,7 +441,7 @@ const Payment = () => {
           
           // Send the payment with FormData for file upload
           const response = await axios.post(
-            `http://localhost:4000/api/payments`,
+            `${process.env.REACT_APP_API_URL}/api/payments`,
             formData,
             { 
               withCredentials: true,
@@ -468,7 +468,7 @@ const Payment = () => {
       
       // Default request for non-file uploads
       const response = await axios.post(
-        `http://localhost:4000/api/payments`,
+        `${process.env.REACT_APP_API_URL}/api/payments`,
         paymentRequestData,
         { 
           withCredentials: true,
@@ -830,8 +830,8 @@ const Payment = () => {
                       <div className="w-16 h-16 shrink-0">
                         <img 
                           src={item.product && item.product.images && item.product.images.length > 0 
-                            ? `http://localhost:4000/${item.product.images[0]}`
-                            : 'http://localhost:4000/placeholder-image.jpg'} 
+                            ? `${process.env.REACT_APP_API_URL}/${item.product.images[0]}`
+                            : `${process.env.REACT_APP_API_URL}/placeholder-image.jpg`} 
                           alt={item.product?.title || item.product?.name || 'Product'} 
                           className="w-full h-full object-cover rounded border"
                         />

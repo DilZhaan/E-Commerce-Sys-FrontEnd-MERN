@@ -40,7 +40,7 @@ const OrderManagement = () => {
           
           // Fetch all payments at once
           try {
-            const paymentsResponse = await axios.get(`http://localhost:4000/api/payments`, {
+            const paymentsResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/payments`, {
               withCredentials: true
             });
             
@@ -255,7 +255,7 @@ const OrderManagement = () => {
           {selectedPayment.bankTransferDetails?.slipImage && (
             <div className="bg-gray-50 rounded-xl overflow-hidden mb-6 border border-gray-100">
               <img 
-                src={`http://localhost:4000/${selectedPayment.bankTransferDetails.slipImage}`}
+                src={`${process.env.REACT_APP_API_URL}/${selectedPayment.bankTransferDetails.slipImage}`}
                 alt="Bank Transfer Slip"
                 className="w-full h-auto max-h-[400px] object-contain"
               />

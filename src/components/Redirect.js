@@ -19,7 +19,7 @@ const Redirect = ({ to }) => {
     if (processedUrl.startsWith('/api/')) {
       // Create a link element
       const link = document.createElement('a');
-      link.href = `http://localhost:4000${processedUrl}`; 
+      link.href = `${process.env.REACT_APP_API_URL}${processedUrl}`; 
       link.setAttribute('target', '_blank');
       
       // Append, click and remove to trigger download

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:4000/api/shop-products';
+const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api/shop-products`;
 
 // Get all shop products with pagination, sorting, and filtering
 export const getShopProducts = async (params = {}) => {

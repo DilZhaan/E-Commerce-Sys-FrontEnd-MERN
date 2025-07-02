@@ -48,7 +48,7 @@ export const useCartActions = () => {
       console.log(`Adding product ${productId} to cart with quantity ${quantity}`);
       
       // Use the backend API directly with fetch for more reliable operation
-      const response = await fetch('http://localhost:4000/api/cart/add', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/cart/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export const useCartActions = () => {
       console.log(`Updating item ${itemId} to quantity ${quantity}`);
       
       // Direct API call for more reliable operation
-      const response = await fetch('http://localhost:4000/api/cart/update', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/cart/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export const useCartActions = () => {
       console.log(`Removing item with ID: ${itemId} from cart`);
       
       // First try to directly call the API for more reliable operation
-      const response = await fetch(`http://localhost:4000/api/cart/item/${itemId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/cart/item/${itemId}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -165,7 +165,7 @@ export const useCartActions = () => {
       console.log('Clearing entire cart');
       
       // Direct API call for more reliable operation
-      const response = await fetch('http://localhost:4000/api/cart/clear', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/cart/clear`, {
         method: 'DELETE',
         credentials: 'include'
       });

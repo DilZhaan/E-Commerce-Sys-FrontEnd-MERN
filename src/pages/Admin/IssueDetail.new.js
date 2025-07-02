@@ -266,10 +266,10 @@ function AdminIssueDetail() {
                   {issue.images.map((image, index) => (
                     <div key={index} className="relative group">
                       <img
-                        src={`http://localhost:4000${image}`}
+                        src={`${process.env.REACT_APP_API_URL}${image}`}
                         alt={`Issue ${index + 1}`}
                         className="h-24 w-full object-cover rounded-md cursor-pointer"
-                        onClick={() => openImageModal(`http://localhost:4000${image}`)}
+                        onClick={() => openImageModal(`${process.env.REACT_APP_API_URL}${image}`)}
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition-all duration-200">
                         <FaImage className="text-white opacity-0 group-hover:opacity-100" />

@@ -114,7 +114,7 @@ const InventoryManagement = () => {
   });
   const [sortOption, setSortOption] = useState('');
 
-  const API_BASE_URL = 'http://localhost:4000/api/inventory';
+  const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api/inventory`;
 
   useEffect(() => {
     fetchInventoryItems();
@@ -754,7 +754,7 @@ const InventoryManagement = () => {
                             <div className="w-16 h-16 rounded-lg overflow-hidden border border-gray-100 shadow-sm">
                               <img
                                 src={item.billImage 
-                                  ? `http://localhost:4000/${item.billImage}` 
+                                  ? `${process.env.REACT_APP_API_URL}/${item.billImage}` 
                                   : "https://via.placeholder.com/150"}
                                 alt={item.modelName || "Bill Image"}
                                 className="w-full h-full object-cover"

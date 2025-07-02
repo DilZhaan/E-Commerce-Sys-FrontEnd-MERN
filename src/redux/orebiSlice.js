@@ -6,7 +6,7 @@ export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:4000/api/cart", {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/cart`, {
         withCredentials: true,
       });
       return response.data.data;
@@ -21,7 +21,7 @@ export const addItemToCart = createAsyncThunk(
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/cart/add",
+        `${process.env.REACT_APP_API_URL}/api/cart/add`,
         { productId, quantity },
         { withCredentials: true }
       );
@@ -37,7 +37,7 @@ export const updateCartItem = createAsyncThunk(
   async ({ itemId, quantity }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        "http://localhost:4000/api/cart/update",
+        `${process.env.REACT_APP_API_URL}/api/cart/update`,
         { itemId, quantity },
         { withCredentials: true }
       );
@@ -53,7 +53,7 @@ export const removeCartItem = createAsyncThunk(
   async (itemId, { rejectWithValue }) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/cart/item/${itemId}`,
+        `${process.env.REACT_APP_API_URL}/api/cart/item/${itemId}`,
         { withCredentials: true }
       );
       return response.data.data;
@@ -68,7 +68,7 @@ export const clearCart = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.delete(
-        "http://localhost:4000/api/cart/clear",
+        `${process.env.REACT_APP_API_URL}/api/cart/clear`,
         { withCredentials: true }
       );
       return response.data.data;

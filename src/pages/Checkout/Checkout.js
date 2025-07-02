@@ -509,7 +509,7 @@ const Checkout = () => {
                       <div className="w-16 h-16 mr-4 overflow-hidden">
                         <img
                           src={item.product?.images && item.product.images.length > 0 
-                            ? `http://localhost:4000/${item.product.images[0]}`
+                            ? `${process.env.REACT_APP_API_URL}/${item.product.images[0]}`
                             : '/placeholder-image.png'
                           }
                           alt={itemName}

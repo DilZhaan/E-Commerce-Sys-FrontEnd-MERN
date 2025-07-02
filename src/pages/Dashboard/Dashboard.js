@@ -67,7 +67,7 @@ const Dashboard = () => {
           <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-100">
             {user?.profilePic || user?.proPic ? (
               <img 
-              src={`http://localhost:4000/${user.profilePic || user.proPic}`}
+              src={`${process.env.REACT_APP_API_URL}/${user.profilePic || user.proPic}`}
               alt="Profile" 
               className="w-full h-full object-cover"
             />

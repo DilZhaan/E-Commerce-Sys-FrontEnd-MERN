@@ -73,10 +73,10 @@ const ProductDetails = () => {
       discount: product.discount || 0,
       des: product.description || '',
       img: product.images && product.images.length > 0
-        ? `http://localhost:4000/${product.images[0]}`
+        ? `${process.env.REACT_APP_API_URL}/${product.images[0]}`
         : "https://via.placeholder.com/400",
       images: product.images 
-        ? product.images.map(img => `http://localhost:4000/${img}`)
+        ? product.images.map(img => `${process.env.REACT_APP_API_URL}/${img}`)
         : [],
       color: product.inventoryItem?.brandName || '',
       badge: product.active ? null : 'Inactive',

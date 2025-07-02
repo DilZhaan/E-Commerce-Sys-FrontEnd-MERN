@@ -36,7 +36,7 @@ const Profile = () => {
         setFetchLoading(true);
         setError('');
         
-        const response = await axios.get('http://localhost:4000/api/users/profile', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
           withCredentials: true
         });
         
@@ -83,7 +83,7 @@ const Profile = () => {
         // The backend returns the full path including "uploads/" so adjust the URL accordingly
         const imageUrl = profilePicture.startsWith('http') 
           ? profilePicture 
-          : `http://localhost:4000/${profilePicture}`;
+          : `${process.env.REACT_APP_API_URL}/${profilePicture}`;
         setImagePreview(imageUrl);
       } else {
         setImagePreview(null);
@@ -155,7 +155,7 @@ const Profile = () => {
     
     try {
       // Make API request to update profile
-      const response = await axios.put('http://localhost:4000/api/users/profile', 
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/users/profile`, 
         profileFormData, 
         { 
           withCredentials: true,
@@ -209,7 +209,7 @@ const Profile = () => {
         // The backend returns the full path including "uploads/" so adjust the URL accordingly
         const imageUrl = profilePicture.startsWith('http') 
           ? profilePicture 
-          : `http://localhost:4000/${profilePicture}`;
+          : `${process.env.REACT_APP_API_URL}/${profilePicture}`;
         setImagePreview(imageUrl);
       } else {
         setImagePreview(null);

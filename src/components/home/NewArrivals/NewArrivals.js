@@ -17,7 +17,7 @@ const NewArrivals = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  const API_BASE_URL = "http://localhost:4000/api/products";
+  const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api/products`;
 
   useEffect(() => {
     const fetchNewArrivals = async () => {
@@ -51,7 +51,7 @@ const NewArrivals = () => {
     _id: product._id,
     productName: product.name,
     img: product.images && product.images.length > 0 
-      ? `http://localhost:4000/${product.images[0]}` 
+      ? `${process.env.REACT_APP_API_URL}/${product.images[0]}` 
       : "https://via.placeholder.com/150",
     price: product.price,
     color: product.category,
