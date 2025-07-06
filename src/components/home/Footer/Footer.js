@@ -32,10 +32,10 @@ const Footer = () => {
     <div className="w-full bg-[#F5F5F3] py-20">
       <div className="max-w-container mx-auto grid grid-cols-1 md:grid-cols-2  xl:grid-cols-6 px-4 gap-10">
         <div className="col-span-2">
-          <FooterListTitle title=" More about Dataverse IT Solutions" />
+          <FooterListTitle title=" More about Dilzhan's Store" />
           <div className="flex flex-col gap-6">
             <p className="text-base w-full xl:w-[80%]">
-            Dataverse IT Solutions is a leading company specializing in providing comprehensive IT solutions, offering a wide range of desktop computers, laptops, and accessories designed to meet various business and personal needs.
+            Dilzhan's Store is your trusted destination for a wide range of quality products, fast delivery, and excellent customer service. Shop with confidence for all your needs!
             </p>
             <ul className="flex items-center gap-2">
               <a

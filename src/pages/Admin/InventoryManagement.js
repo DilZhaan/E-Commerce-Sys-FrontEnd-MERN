@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { FaEdit, FaTrash, FaSearch, FaDownload, FaFileCsv, FaFileExcel } from 'react-icons/fa';
 import { FiDownload, FiUpload, FiPlus, FiSearch, FiFilter, FiChevronLeft, FiArrowLeft } from "react-icons/fi";
+import * as XLSX from 'xlsx';
 
 // Add this function to export data to CSV
 const exportToCSV = (data, filename) => {
@@ -60,9 +61,6 @@ const exportToExcel = async (data, filename) => {
   }
   
   try {
-    // Dynamically import xlsx library
-    const XLSX = await import('https://cdn.sheetjs.com/xlsx-0.20.0/package/xlsx.mjs');
-    
     // Convert data to worksheet
     const ws = XLSX.utils.json_to_sheet(data);
     

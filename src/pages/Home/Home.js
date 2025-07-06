@@ -54,8 +54,8 @@ const Home = () => {
               className="hidden md:block"
             >
               <img 
-                src="https://tenisitech.com/wp-content/uploads/2024/01/IT-Solutions.jpg" 
-                alt="IT Solutions" 
+                src="https://tenisitech.com/wp-content/uploads/2024/01/IT-Solutions.jpg"
+                alt="Dilzhan's Store" 
                 className="rounded-lg shadow-2xl"
               />
             </motion.div>
@@ -67,31 +67,31 @@ const Home = () => {
       <div className="py-16 bg-gray-50">
         <div className="max-w-container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Why Choose Us</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Why Shop With Us</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              We provide comprehensive IT solutions with a focus on quality, reliability, and customer satisfaction.
+              Discover a wide range of quality products, fast delivery, and excellent customer service at Dilzhan's Store.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <FeatureCard 
               icon={<FaDesktop className="text-4xl text-blue-600" />}
-              title="Premium Hardware"
-              description="High-quality computers and accessories from leading manufacturers"
+              title="Wide Selection"
+              description="A huge variety of products for every need"
             />
             <FeatureCard 
               icon={<FaHeadset className="text-4xl text-blue-600" />}
-              title="24/7 Support"
-              description="Round-the-clock technical support and assistance"
+              title="Customer Support"
+              description="Friendly and responsive support team"
             />
             <FeatureCard 
               icon={<FaShieldAlt className="text-4xl text-blue-600" />}
-              title="Warranty Protection"
-              description="Comprehensive warranty coverage for all products"
+              title="Secure Shopping"
+              description="Safe and secure checkout process"
             />
             <FeatureCard 
               icon={<FaTools className="text-4xl text-blue-600" />}
-              title="Expert Installation"
-              description="Professional setup and configuration services"
+              title="Easy Returns"
+              description="Hassle-free returns and exchanges"
             />
             <FeatureCard 
               icon={<FaTruck className="text-4xl text-blue-600" />}
@@ -100,8 +100,8 @@ const Home = () => {
             />
             <FeatureCard 
               icon={<FaCheckCircle className="text-4xl text-blue-600" />}
-              title="Quality Assurance"
-              description="Rigorous testing and quality checks"
+              title="Quality Products"
+              description="Only the best products for our customers"
             />
           </div>
         </div>
@@ -140,24 +140,24 @@ const Home = () => {
           <h2 className="text-3xl font-bold text-center mb-12">What Our Clients Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TestimonialCard 
-              name="John Smith"
-              role="IT Manager"
-              company="TechCorp Solutions"
-              text="The IT solutions we received from Dataverse IT Solutions have significantly improved our business operations. Their expert guidance in selecting the right equipment was invaluable."
+              name="Ayesha Perera"
+              role="Customer"
+              company="Colombo"
+              text="Shopping at Dilzhan's Store was a fantastic experience. Great products and fast delivery!"
               rating={5}
             />
             <TestimonialCard 
-              name="Sarah Johnson"
-              role="CEO"
-              company="Digital Innovations"
-              text="Exceptional service and support. The team went above and beyond to ensure our IT infrastructure was set up perfectly."
+              name="Ruwan Silva"
+              role="Customer"
+              company="Kandy"
+              text="Excellent customer service and a wide range of products. Highly recommended!"
               rating={5}
             />
             <TestimonialCard 
-              name="Michael Brown"
-              role="Operations Director"
-              company="Global Systems"
-              text="We've been sourcing our IT equipment from Dataverse IT Solutions for over 5 years. Their reliability and quality products have made them our preferred supplier."
+              name="Nadeesha Fernando"
+              role="Customer"
+              company="Galle"
+              text="I found everything I needed at Dilzhan's Store. The checkout process was smooth and easy."
               rating={5}
             />
           </div>
@@ -167,9 +167,9 @@ const Home = () => {
       {/* CTA Section */}
       <div className="py-16 bg-gradient-to-r from-blue-900 to-indigo-800 text-white">
         <div className="max-w-container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Upgrade Your IT Infrastructure?</h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Shop the Best Deals?</h2>
           <p className="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
-            Contact us today for a free consultation and discover how we can help transform your business with the right IT solutions.
+            Start shopping today and enjoy exclusive offers at Dilzhan's Store!
           </p>
           <Link to="/contact">
             <button className="bg-white text-blue-900 hover:bg-blue-100 px-8 py-3 rounded-lg font-semibold transition duration-300">

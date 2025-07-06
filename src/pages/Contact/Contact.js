@@ -29,22 +29,22 @@ const Contact = () => {
         <ContactCard 
           icon={<FaMapMarkerAlt className="text-2xl text-blue-500" />}
           title="Our Location"
-          details={["123 Galle Road", "Colombo 03", "Sri Lanka"]}
+          details={["456 Main Street", "Colombo", "Sri Lanka"]}
         />
         <ContactCard 
           icon={<FaPhone className="text-2xl text-blue-500" />}
           title="Phone Numbers"
-          details={["+94 11 234 5678", "+94 77 123 4567"]}
+          details={["+94 77 123 4567", "+94 76 987 6543"]}
         />
         <ContactCard 
           icon={<FaEnvelope className="text-2xl text-blue-500" />}
           title="Email Us"
-          details={["sales@dataverse.lk", "support@dataverse.lk"]}
+          details={["info@dilzhansstore.lk", "support@dilzhansstore.lk"]}
         />
         <ContactCard 
           icon={<FaClock className="text-2xl text-blue-500" />}
           title="Working Hours"
-          details={["Monday - Friday: 9am - 6pm", "Saturday: 9am - 1pm", "Sunday: Closed"]}
+          details={["Monday - Saturday: 9am - 8pm", "Sunday: Closed"]}
         />
       </div>
   
@@ -55,21 +55,21 @@ const Contact = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <BranchCard 
             name="Kandy Branch"
-            address="45 Peradeniya Road, Kandy"
+            address="123 Kandy Road, Kandy"
             phone="+94 81 234 5678"
-            email="kandy@dataverse.lk"
+            email="kandy@dilzhansstore.lk"
           />
           <BranchCard 
             name="Galle Branch"
-            address="78 Main Street, Galle Fort"
+            address="78 Main Street, Galle"
             phone="+94 91 234 5678"
-            email="galle@dataverse.lk"
+            email="galle@dilzhansstore.lk"
           />
           <BranchCard 
             name="Jaffna Branch"
-            address="123 Hospital Road, Jaffna"
+            address="45 Jaffna Road, Jaffna"
             phone="+94 21 234 5678"
-            email="jaffna@dataverse.lk"
+            email="jaffna@dilzhansstore.lk"
           />
         </div>
       </div>
