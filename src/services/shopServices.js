@@ -1,13 +1,12 @@
 import axios from 'axios';
-
-const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api/shop-products`;
+import { API_URLS, axiosConfig } from '../config/api.config';
 
 // Get all shop products with pagination, sorting, and filtering
 export const getShopProducts = async (params = {}) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/list`, { 
+    const response = await axios.get(`${API_URLS.shop}/list`, { 
+      ...axiosConfig,
       params,
-      withCredentials: true
     });
     return response.data;
   } catch (error) {
@@ -19,9 +18,9 @@ export const getShopProducts = async (params = {}) => {
 // Search shop products
 export const searchShopProducts = async (searchTerm, params = {}) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/search`, { 
+    const response = await axios.get(`${API_URLS.shop}/search`, { 
+      ...axiosConfig,
       params: { q: searchTerm, ...params },
-      withCredentials: true
     });
     return response.data;
   } catch (error) {
@@ -33,9 +32,7 @@ export const searchShopProducts = async (searchTerm, params = {}) => {
 // Get shop product details by ID
 export const getShopProductById = async (id) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/detail/${id}`, {
-      withCredentials: true
-    });
+    const response = await axios.get(`${API_URLS.shop}/detail/${id}`, axiosConfig);
     return response.data;
   } catch (error) {
     console.error(`Error fetching shop product with ID ${id}:`, error);

@@ -1,35 +1,19 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine
 
 # Set working directory
 WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 # Copy rest of the code
 COPY . .
 
-# Build the React app
-RUN npm run build
+# Set environment variables with defaults
+ENV NODE_ENV=production
+ENV REACT_APP_API_URL=http://localhost:5000
 
-# Production image
-FROM node:18-alpine
-
-# Install serve
-RUN npm install -g serve
-
-# Set working directory
-WORKDIR /app
-
-# Copy build files from builder stage
-COPY --from=builder /app/build ./build
-
-# Switch to non-root user
-USER node
-
-# Expose frontend port
+# Start the development server (for testing)
 EXPOSE 3000
-
-# Serve the build folder
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["npm", "start"]
