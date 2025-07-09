@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // Get the API URL from environment variables with fallback
 const getBaseUrl = () => {
   if (process.env.REACT_APP_API_URL) {
@@ -48,8 +50,6 @@ export const axiosConfig = {
 };
 
 // Create axios instance with default config
-import axios from 'axios';
-
 const axiosInstance = axios.create({
   ...axiosConfig,
   baseURL: API_URL,
