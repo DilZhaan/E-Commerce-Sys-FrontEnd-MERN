@@ -34,4 +34,4 @@ jobs:
             ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
           build-args: |
             REACT_APP_API_URL=${{ secrets.BACKEND_URL }}
-            NODE_ENV=production
+            NODE_ENV=development
