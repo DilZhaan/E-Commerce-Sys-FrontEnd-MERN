@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { API_URLS } from '../config/api.config';
+import { API_URLS, axiosInstance } from '../config/api.config';
 
 const BASE_URL = API_URLS.auth;
 
@@ -96,9 +96,15 @@ export const checkAuth = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       console.log("Checking authentication status");
-      const response = await axios.get(`${BASE_URL}/check`, {
-        withCredentials: true
+      console.log("Document cookie:", document.cookie); // Debug cookie presence
+      
+      const response = await axiosInstance.get(`/auth/check`, {
+        withCredentials: true,
+        headers: {
+          'Accept': 'application/json',
+        }
       });
+      
       console.log("Auth check response:", response.data);
       
       // Log detailed user info for debugging
@@ -121,6 +127,8 @@ export const checkAuth = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Auth check failed:", error);
+      console.log("Error response:", error.response?.data);
+      console.log("Request config:", error.config);
       
       // Handle token expiration or auth issues
       if (error.response?.status === 401) {
@@ -129,7 +137,7 @@ export const checkAuth = createAsyncThunk(
         // Force user logout when token is expired
         try {
           // Try to clear cookie on server
-          await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true })
+          await axiosInstance.post(`/auth/logout`, {}, { withCredentials: true })
             .catch(err => console.log("Logout cleanup attempt failed:", err));
             
           console.log("Expired token detected - user automatically logged out");

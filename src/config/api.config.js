@@ -4,9 +4,10 @@ const getBaseUrl = () => {
     return process.env.REACT_APP_API_URL;
   }
   
-  // In Docker, use the service name as hostname
+  // In Docker, use the container service name if in production
   if (process.env.NODE_ENV === 'production') {
-    return 'http://backend:5000';
+    // Use the actual backend URL in production
+    return 'http://40.76.251.17:5000';
   }
   
   // Local development fallback
@@ -15,6 +16,13 @@ const getBaseUrl = () => {
 
 const BASE_URL = getBaseUrl();
 const API_URL = `${BASE_URL}/api`;
+
+// Log the API configuration
+console.log('API Configuration:', {
+  baseUrl: BASE_URL,
+  apiUrl: API_URL,
+  environment: process.env.NODE_ENV
+});
 
 // Base URLs for different services
 export const API_URLS = {
@@ -39,4 +47,24 @@ export const axiosConfig = {
   credentials: 'include'
 };
 
+// Create axios instance with default config
+import axios from 'axios';
+
+const axiosInstance = axios.create({
+  ...axiosConfig,
+  baseURL: API_URL,
+});
+
+// Add request interceptor for debugging
+axiosInstance.interceptors.request.use(config => {
+  console.log('Request Config:', {
+    url: config.url,
+    method: config.method,
+    headers: config.headers,
+    withCredentials: config.withCredentials
+  });
+  return config;
+});
+
+export { axiosInstance };
 export default API_URLS; 
