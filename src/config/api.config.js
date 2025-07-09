@@ -1,6 +1,6 @@
 // Get the API URL from environment variables with fallback
 
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 const API_URL = `${BASE_URL}/api`;
 
 // Base URLs for different services
