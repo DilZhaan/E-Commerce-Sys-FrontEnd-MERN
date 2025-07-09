@@ -1,19 +1,15 @@
-FROM node:18-alpine
+FROM node:18-alpine AS build
 
-# Set working directory
 WORKDIR /app
-
-# Install dependencies
 COPY package*.json ./
 RUN npm install
-
-# Copy rest of the code
 COPY . .
+RUN npm run build
 
-# Set environment variables with defaults
-ENV NODE_ENV=production
-ENV REACT_APP_API_URL=http://localhost:5000
+FROM node:18-alpine AS run
+WORKDIR /app
+RUN npm install -g serve
+COPY --from=build /app/build ./build
 
-# Start the development server (for testing)
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build", "-l", "3000"]
