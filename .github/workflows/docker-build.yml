@@ -31,4 +31,7 @@ jobs:
           push: true
           tags: |
             ${{ env.DOCKER_IMAGE }}:latest
-            ${{ env.DOCKER_IMAGE }}:${{ github.sha }} 
+            ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+          build-args: |
+            REACT_APP_API_URL=${{ secrets.BACKEND_URL }}
+            NODE_ENV=production
