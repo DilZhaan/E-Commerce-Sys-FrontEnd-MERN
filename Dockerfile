@@ -22,5 +22,5 @@ RUN mkdir -p /var/cache/nginx && \
     chmod -R 755 /var/cache/nginx
 # Switch to non-root user
 USER nginx
-EXPOSE 80
+EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]
