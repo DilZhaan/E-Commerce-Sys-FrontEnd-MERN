@@ -9,18 +9,14 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM nginx:alpine
-# Copy build files with explicit ownership
-COPY --from=build --chown=nginx:nginx /app/build /usr/share/nginx/html
-# Copy Nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Create cache directories with proper permissions
-RUN mkdir -p /var/cache/nginx && \
-    chown -R nginx:nginx /var/cache/nginx && \
-    mkdir -p /var/run && \
-    chown -R nginx:nginx /var/run && \
-    chmod -R 755 /var/cache/nginx
-# Switch to non-root user
-USER nginx
+FROM node:18-alpine AS run
+ARG REACT_APP_API_URL
+ARG NODE_ENV=production
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+ENV NODE_ENV=$NODE_ENV
+WORKDIR /app
+RUN npm install -g serve
+COPY --from=build /app/build ./build
+
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "build", "-l", "3000"]
