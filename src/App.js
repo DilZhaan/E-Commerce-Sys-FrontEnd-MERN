@@ -8,7 +8,6 @@ import {
   ScrollRestoration,
   useLocation,
   Link,
-  Navigate,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +23,6 @@ import Cart from "./pages/Cart/Cart";
 import Contact from "./pages/Contact/Contact";
 import Home from "./pages/Home/Home";
 import Journal from "./pages/Journal/Journal";
-import Offer from "./pages/Offer/Offer";
 import Payment from "./pages/payment/Payment";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Shop from "./pages/Shop/Shop";
@@ -33,7 +31,6 @@ import Orders from "./pages/Dashboard/Orders";
 import AuthTest from "./pages/Account/AuthTest";
 import Profile from "./pages/Account/Profile";
 import IssuesDashboard from "./pages/Account/IssuesDashboard";
-import IssueForm from "./pages/Account/IssueForm";
 import IssueDetail from "./pages/Account/IssueDetail";
 import AuthGuard from "./components/AuthGuard";
 import RoleBasedAuthGuard from "./components/RoleBasedAuthGuard";
@@ -191,7 +188,6 @@ const router = createBrowserRouter(
         <Route path="/contact" element={<Contact />} />
         <Route path="/journal" element={<Journal />} />
         {/* ==================== Header Navlink End here ===================== */}
-        <Route path="/offer" element={<Offer />} />
         <Route path="/product/:_id" element={<ProductDetails />} />
         
         {/* Updated Cart route - no longer needs protection since our useCartActions handles auth checks */}
