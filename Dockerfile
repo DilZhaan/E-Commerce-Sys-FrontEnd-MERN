@@ -9,14 +9,9 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM node:18-alpine AS run
-ARG REACT_APP_API_URL
-ARG NODE_ENV=production
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
-ENV NODE_ENV=$NODE_ENV
-WORKDIR /app
-RUN npm install -g serve
-COPY --from=build /app/build ./build
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 3000
-CMD ["serve", "-s", "build", "-l", "3000"]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
