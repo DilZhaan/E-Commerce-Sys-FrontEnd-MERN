@@ -1,6 +1,7 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 import Product from "../../home/Products/Product";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 const Pagination = ({ products, totalProducts, currentPage, onPageChange, itemsPerPage }) => {
   // Calculate page count
@@ -17,9 +18,7 @@ const Pagination = ({ products, totalProducts, currentPage, onPageChange, itemsP
       return {
         _id: product._id,
         productName: product.name,
-        img: product.images && product.images.length > 0 
-          ? `${process.env.REACT_APP_API_URL}/${product.images[0]}` 
-          : "https://via.placeholder.com/150",
+        img: getImageUrl(product.images),
         price: product.salePrice,
         color: product.inventoryItem?.brandName || 'Shop Product',
         des: product.description,
@@ -31,9 +30,7 @@ const Pagination = ({ products, totalProducts, currentPage, onPageChange, itemsP
       return {
         _id: product._id,
         productName: product.name,
-        img: product.images && product.images.length > 0 
-          ? `${process.env.REACT_APP_API_URL}/${product.images[0]}` 
-          : "https://via.placeholder.com/150",
+        img: getImageUrl(product.images),
         price: product.price,
         color: product.category,
         des: product.description,

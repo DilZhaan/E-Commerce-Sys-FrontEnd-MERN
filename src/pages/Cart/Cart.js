@@ -5,6 +5,7 @@ import { FaTrash, FaArrowLeft, FaShoppingBag, FaPlus, FaMinus, FaSpinner, FaShop
 import { toast } from 'react-toastify';
 import { useCartActions } from '../../hooks/useCartActions';
 import './Cart.css';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const Cart = () => {
   const { isAuthenticated } = useSelector(state => state.auth);
@@ -72,31 +73,8 @@ const Cart = () => {
   };
 
   // Helper function to get image URL
-  const getImageUrl = (product) => {
-    if (!product) return '/placeholder-image.png';
-    
-    // Check various possible image properties
-    if (product.images && product.images.length > 0) {
-      const imagePath = product.images[0];
-      return imagePath.startsWith('http') 
-        ? imagePath 
-        : `${process.env.REACT_APP_API_URL}/${imagePath}`;
-    }
-    
-    if (product.imageUrls && product.imageUrls.length > 0) {
-      const imagePath = product.imageUrls[0];
-      return imagePath.startsWith('http') 
-        ? imagePath 
-        : `${process.env.REACT_APP_API_URL}/${imagePath}`;
-    }
-    
-    if (product.image) {
-      return product.image.startsWith('http')
-        ? product.image
-        : `${process.env.REACT_APP_API_URL}/${product.image}`;
-    }
-    
-    return '/placeholder-image.png';
+  const getProductImage = (product) => {
+    return getImageUrl(product?.images, '/placeholder-image.png');
   };
 
   if (loading) {
@@ -152,7 +130,7 @@ const Cart = () => {
               <div key={itemId} className="cart-item">
                 <div className="item-info">
                   <img 
-                    src={getImageUrl(item.product)}
+                    src={getProductImage(item.product)}
                     alt={item.product?.name || 'Product Image'}
                     className="item-image" 
                     onError={(e) => {

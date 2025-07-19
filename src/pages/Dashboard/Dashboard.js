@@ -67,10 +67,14 @@ const Dashboard = () => {
           <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-100">
             {user?.profilePic || user?.proPic ? (
               <img 
-              src={`${process.env.REACT_APP_API_URL}/${user.profilePic || user.proPic}`}
-              alt="Profile" 
-              className="w-full h-full object-cover"
-            />
+                src={
+                  typeof (user.profilePic || user.proPic) === 'object'
+                    ? (user.profilePic || user.proPic).url  // New Cloudinary format
+                    : `${process.env.REACT_APP_API_URL}/${user.profilePic || user.proPic}` // Old format
+                }
+                alt="Profile" 
+                className="w-full h-full object-cover"
+              />
             
             ) : (
               <div className="w-full h-full flex items-center justify-center">

@@ -3,8 +3,9 @@ import { ImCross } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { removeCartItem, updateCartItem } from "../../redux/orebiSlice";
 import { toast } from "react-toastify";
+import { getImageUrl } from "../../utils/imageUtils";
 
-const ItemCard = ({ item }) => {
+const ItemCard = ({ item, onRemove, onQuantityChange }) => {
   const dispatch = useDispatch();
   
   const handleRemoveFromCart = () => {
@@ -51,7 +52,7 @@ const ItemCard = ({ item }) => {
         />
         <img 
           className="w-32 h-32" 
-          src={`${process.env.REACT_APP_API_URL}/${item.product.images[0]}`} 
+          src={getImageUrl(item.product.images)} 
           alt={item.product.name} 
         />
         <h1 className="font-titleFont font-semibold">{item.product.name}</h1>

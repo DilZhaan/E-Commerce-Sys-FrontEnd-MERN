@@ -5,7 +5,8 @@ import ProductInfo from "../../components/pageProps/productDetails/ProductInfo";
 import ProductsOnSale from "../../components/pageProps/productDetails/ProductsOnSale";
 import ProductFeedback from "../../components/pageProps/productDetails/ProductFeedback";
 import { FaRegImages } from "react-icons/fa";
-import { getShopProductById } from "../../services/shopServices";
+import { getShopProductById } from "../../services/shopProductServices";
+import { getImageUrls } from "../../utils/imageUtils";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -66,18 +67,16 @@ const ProductDetails = () => {
   const formatProduct = (product) => {
     if (!product) return null;
     
+    const productImages = getImageUrls(product.images);
+    
     return {
       _id: product._id,
       productName: product.name,
       price: product.salePrice,
       discount: product.discount || 0,
       des: product.description || '',
-      img: product.images && product.images.length > 0
-        ? `${process.env.REACT_APP_API_URL}/${product.images[0]}`
-        : "https://via.placeholder.com/400",
-      images: product.images 
-        ? product.images.map(img => `${process.env.REACT_APP_API_URL}/${img}`)
-        : [],
+      img: productImages[0],
+      images: productImages,
       color: product.inventoryItem?.brandName || '',
       badge: product.active ? null : 'Inactive',
       warranty: product.shopWarranty ? `${product.shopWarranty} months` : 'No warranty',

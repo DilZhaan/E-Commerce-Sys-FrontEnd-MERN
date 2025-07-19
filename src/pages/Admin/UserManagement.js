@@ -3,6 +3,7 @@ import axios from "axios";
 import { FiDownload, FiUpload, FiPlus, FiSearch, FiFilter, FiChevronLeft } from "react-icons/fi";
 import { FaUserCog, FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { getImageUrl } from '../../utils/imageUtils';
 
 // Name validation function - only letters, spaces, and hyphens
 const NameValidation = (name) => {
@@ -55,7 +56,7 @@ const UserManagement = () => {
       });
       const formattedUsers = response.data.data.map((user) => ({
         _id: user._id,
-        proPic: BACKEND_URL + "/" + user.proPic,
+        proPic: user.proPic, // Keep the original proPic object from backend
         name: `${user.fName} ${user.lName}`,
         fName: user.fName,
         lName: user.lName,
@@ -442,7 +443,7 @@ const UserManagement = () => {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <img
-                            src={user.proPic || "https://th.bing.com/th/id/OIP._oHjxcDbPRe0HSQA1B4SygHaHa?rs=1&pid=ImgDetMain"}
+                            src={getImageUrl(user.proPic, "https://th.bing.com/th/id/OIP._oHjxcDbPRe0HSQA1B4SygHaHa?rs=1&pid=ImgDetMain")}
                             alt="Profile"
                             className="w-10 h-10 rounded-full object-cover"
                             onError={(e) => {
@@ -526,7 +527,7 @@ const UserManagement = () => {
             
             <div className="flex justify-center mb-6">
               <img
-                src={selectedUser.proPic || "https://th.bing.com/th/id/OIP._oHjxcDbPRe0HSQA1B4SygHaHa?rs=1&pid=ImgDetMain"}
+                src={getImageUrl(selectedUser.proPic, "https://th.bing.com/th/id/OIP._oHjxcDbPRe0HSQA1B4SygHaHa?rs=1&pid=ImgDetMain")}
                 alt="Profile"
                 className="w-28 h-28 rounded-full object-cover border-2 border-blue-500 shadow-md"
                 onError={(e) => {
@@ -629,7 +630,7 @@ const UserManagement = () => {
               <div className="flex justify-center mb-4">
                 <div className="relative">
                   <img
-                    src={newUser.proPicPreview || "https://th.bing.com/th/id/OIP._oHjxcDbPRe0HSQA1B4SygHaHa?rs=1&pid=ImgDetMain"}
+                    src={newUser.proPicPreview || getImageUrl(newUser.proPic, "https://th.bing.com/th/id/OIP._oHjxcDbPRe0HSQA1B4SygHaHa?rs=1&pid=ImgDetMain")}
                     alt="Profile"
                     className="w-28 h-28 rounded-full object-cover border-2 border-blue-500 shadow-md"
                     onError={(e) => {

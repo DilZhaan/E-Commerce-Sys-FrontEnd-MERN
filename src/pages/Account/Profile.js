@@ -80,10 +80,12 @@ const Profile = () => {
       const profilePicture = profileData.profilePic || profileData.proPic;
       
       if (profilePicture) {
-        // The backend returns the full path including "uploads/" so adjust the URL accordingly
-        const imageUrl = profilePicture.startsWith('http') 
-          ? profilePicture 
-          : `${process.env.REACT_APP_API_URL}/${profilePicture}`;
+        // Handle both old and new profile picture formats
+        const imageUrl = typeof profilePicture === 'object' 
+          ? profilePicture.url  // New Cloudinary format
+          : profilePicture.startsWith('http') 
+            ? profilePicture 
+            : `${process.env.REACT_APP_API_URL}/${profilePicture}`; // Old format
         setImagePreview(imageUrl);
       } else {
         setImagePreview(null);
@@ -206,10 +208,12 @@ const Profile = () => {
       const profilePicture = profileData.profilePic || profileData.proPic;
       
       if (profilePicture) {
-        // The backend returns the full path including "uploads/" so adjust the URL accordingly
-        const imageUrl = profilePicture.startsWith('http') 
-          ? profilePicture 
-          : `${process.env.REACT_APP_API_URL}/${profilePicture}`;
+        // Handle both old and new profile picture formats
+        const imageUrl = typeof profilePicture === 'object' 
+          ? profilePicture.url  // New Cloudinary format
+          : profilePicture.startsWith('http') 
+            ? profilePicture 
+            : `${process.env.REACT_APP_API_URL}/${profilePicture}`; // Old format
         setImagePreview(imageUrl);
       } else {
         setImagePreview(null);

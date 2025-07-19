@@ -12,6 +12,7 @@ import {
   deleteShopProduct,
   toggleProductActive
 } from '../../services/shopProductServices';
+import { getImageUrl } from "../../utils/imageUtils";
 
 // Base URL for API
 const BASE_URL = process.env.REACT_APP_API_URL;
@@ -716,7 +717,7 @@ const ShopProductManagement = () => {
                           {product.images && product.images.length > 0 ? (
                             <img
                               className="h-10 w-10 object-cover rounded-md"
-                              src={`${BASE_URL}/${product.images[0]}`}
+                              src={getImageUrl(product.images[0])}
                               alt={product.name}
                             />
                           ) : (
@@ -967,7 +968,7 @@ const ShopProductManagement = () => {
                         {imagePreview.map((preview, index) => (
                           <div key={index} className="relative group">
                             <img
-                              src={preview.url}
+                              src={preview.isExisting ? getImageUrl(preview.url) : preview.url}
                               alt={`Preview ${index}`}
                               className="h-24 w-full object-cover rounded-md"
                             />

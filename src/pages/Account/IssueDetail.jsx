@@ -7,6 +7,7 @@ import { MdArrowBack, MdSend, MdImage, MdEdit, MdSave, MdCancel } from 'react-ic
 import { toast } from 'react-toastify';
 import { FaArrowLeft } from 'react-icons/fa';
 import Loading from '../../components/Loading';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const statusColors = {
   'PENDING': 'bg-yellow-100 text-yellow-800',
@@ -412,15 +413,7 @@ function IssueDetail() {
               <p className="text-sm text-gray-500 mb-2">Images ({issue.images.length})</p>
               <div className="flex flex-wrap gap-3">
                 {issue.images.map((image, index) => {
-                  // For image URLs, we need to use the base server URL without the /api suffix
-                  let baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
-                  baseUrl = baseUrl.replace('/api', ''); // Remove /api from the URL for image paths
-                  
-                  const imageUrl = image.startsWith('http') 
-                    ? image 
-                    : `${baseUrl}${image}`;
-                  
-                  console.log(`Image ${index} URL:`, imageUrl);
+                  const imageUrl = getImageUrl(image);
                   
                   return (
                     <a 

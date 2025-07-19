@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getIssueById, updateIssueStatus, addMessage, deleteIssue, assignTechnician, removeTechnician } from '../../services/issueServices';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { FaArrowLeft, FaCheckCircle, FaSpinner, FaEnvelope, FaTrash, FaEdit, FaImage, FaExclamationTriangle, FaUserPlus, FaUserMinus } from 'react-icons/fa';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const statusColors = {
   'PENDING': {
@@ -378,10 +379,10 @@ function AdminIssueDetail() {
                   {issue.images.map((image, index) => (
                     <div key={index} className="relative group">
                       <img
-                        src={`${process.env.REACT_APP_API_URL}${image}`}
+                        src={getImageUrl(image)}
                         alt={`Issue ${index + 1}`}
                         className="h-24 w-full object-cover rounded-md cursor-pointer"
-                        onClick={() => openImageModal(`${process.env.REACT_APP_API_URL}${image}`)}
+                        onClick={() => openImageModal(getImageUrl(image))}
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition-all duration-200">
                         <FaImage className="text-white opacity-0 group-hover:opacity-100" />

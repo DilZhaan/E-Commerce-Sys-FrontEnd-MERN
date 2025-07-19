@@ -5,6 +5,7 @@ import Badge from "./Badge";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useCartActions } from "../../../hooks/useCartActions";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 const Product = (props) => {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ const Product = (props) => {
     <div className="w-full relative group">
       <div className="max-w-80 max-h-80 relative overflow-y-hidden" onClick={handleProductDetails}>
         <div className="cursor-pointer">
-          <Image className="w-full h-full" imgSrc={props.img} />
+          <Image className="w-full h-full" imgSrc={getImageUrl(props.img)} />
         </div>
         <div className="absolute top-6 left-8">
           {props.badge && <Badge text={props.badge === true ? "New" : props.badge} />}
