@@ -10,10 +10,8 @@ export const fetchCart = createAsyncThunk(
   async (_, { dispatch, rejectWithValue }) => {
     try {
       dispatch(setLoading(true));
-      console.log("Fetching cart data from API");
       
       const response = await axios.get(`${API_URL}/cart`, { withCredentials: true });
-      console.log("Cart API response:", response.data);
       
       // Make sure we're handling the correct response structure
       // The backend may return data in a nested structure
@@ -47,7 +45,6 @@ export const fetchCart = createAsyncThunk(
         itemCount: itemCount
       };
       
-      console.log("Formatted cart data:", formattedCart);
       dispatch(setCart(formattedCart));
       dispatch(setLoading(false));
       return formattedCart;
@@ -67,15 +64,12 @@ export const addItemToCart = createAsyncThunk(
   async ({ productId, quantity = 1 }, { dispatch, rejectWithValue }) => {
     try {
       dispatch(setLoading(true));
-      console.log(`Adding item ${productId} to cart with quantity ${quantity}`);
       
       const response = await axios.post(
         `${API_URL}/cart/add`,
         { productId, quantity },
         { withCredentials: true }
       );
-      
-      console.log('Add to cart response:', response.data);
       
       if (!response.data.success) {
         throw new Error(response.data.message || 'Failed to add item to cart');
@@ -100,15 +94,12 @@ export const updateCartItemQuantity = createAsyncThunk(
   async ({ productId, quantity }, { dispatch, rejectWithValue }) => {
     try {
       dispatch(setLoading(true));
-      console.log(`Updating item ${productId} quantity to ${quantity}`);
       
       const response = await axios.put(
         `${API_URL}/cart/update`,
         { itemId: productId, quantity },
         { withCredentials: true }
       );
-      
-      console.log('Update item response:', response.data);
       
       // Refetch cart instead of parsing response
       dispatch(fetchCart());
@@ -129,14 +120,11 @@ export const removeCartItem = createAsyncThunk(
   async (productId, { dispatch, rejectWithValue }) => {
     try {
       dispatch(setLoading(true));
-      console.log(`Removing item ${productId} from cart`);
       
       // Use the correct API endpoint
       const response = await axios.delete(`${API_URL}/cart/item/${productId}`, { 
         withCredentials: true 
       });
-      
-      console.log('Remove item response:', response.data);
       
       // Refetch cart instead of parsing response
       dispatch(fetchCart());
@@ -157,13 +145,10 @@ export const clearEntireCart = createAsyncThunk(
   async (_, { dispatch, rejectWithValue }) => {
     try {
       dispatch(setLoading(true));
-      console.log('Clearing entire cart');
       
       const response = await axios.delete(`${API_URL}/cart/clear`, { 
         withCredentials: true 
       });
-      
-      console.log('Clear cart response:', response.data);
       
       dispatch(resetCart());
       dispatch(setLoading(false));

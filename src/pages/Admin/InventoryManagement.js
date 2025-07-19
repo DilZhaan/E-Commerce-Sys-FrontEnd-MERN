@@ -323,7 +323,7 @@ const InventoryManagement = () => {
       const inventoryFormData = new FormData();
       
       // Debug log of formData before submission
-      console.log("Form data before submission:", formData);
+
       
       // Add text fields - ensure all required fields are added explicitly
       inventoryFormData.append('modelName', formData.modelName);
@@ -358,7 +358,7 @@ const InventoryManagement = () => {
       
       // Debug log the formData entries
       for (let pair of inventoryFormData.entries()) {
-        console.log(pair[0], pair[1]);
+
       }
       
       let response;

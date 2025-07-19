@@ -122,13 +122,13 @@ function ReportIssue() {
     e.preventDefault();
     
     // Debug form data
-    console.log("Form data before validation:", JSON.stringify(formData, null, 2));
+
     
     // We'll no longer use default values for phone numbers
     // We'll rely on the validateForm function to ensure they're valid
     
     if (!validateForm()) {
-      console.log("Validation failed, errors:", validationErrors);
+  
       toast.error("Please fix the validation errors and try again.");
       return;
     }
@@ -151,10 +151,7 @@ function ReportIssue() {
       // If user is authenticated, include the user ID
       if (isAuthenticated && user && user._id) {
         issueData.user = user._id;
-        console.log('Including authenticated user ID:', user._id);
       }
-      
-      console.log('Submitting issue data:', issueData);
       
       // Use direct axios for submission
       const API_URL = process.env.REACT_APP_API_URL + "/api" || 'http://localhost:4000/api';
@@ -183,18 +180,16 @@ function ReportIssue() {
         
         // Add images to form data
         formData.images.forEach((image, index) => {
-          console.log(`Adding image ${index}:`, image.name, image.type, image.size);
           imageFormData.append('images', image);
         });
         
         // Submit images
-        console.log(`Uploading images for issue ID: ${issueId}`);
         await axios.post(`${API_URL}/issues/${issueId}/images`, imageFormData, {
           withCredentials: true
         });
       }
       
-      console.log('Response from server:', response.data);
+
       toast.success('Issue reported successfully!');
       
       // Navigate to the appropriate page

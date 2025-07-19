@@ -25,15 +25,14 @@ const Payments = () => {
     try {
       setLoading(true);
       setConnectionError(false);
-      console.log("Fetching payments from:", `${process.env.REACT_APP_API_URL}/api/payments/my-payments`);
+
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/payments/my-payments`, {
         withCredentials: true
       });
       
-      console.log("Payments response:", response.data);
+
       
       if (response.data && response.data.success) {
-        console.log("Setting payments:", response.data.payments || []);
         setPayments(response.data.payments || response.data.data || []);
       } else {
         console.error("Failed to load payments, response:", response.data);

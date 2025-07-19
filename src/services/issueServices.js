@@ -2,7 +2,6 @@ import axios from 'axios';
 
 // Make sure we have the correct API URL
 const API_URL = `${process.env.REACT_APP_API_URL}/api`;
-console.log('API URL initialized as:', API_URL);
 
 // Create a new issue
 export const createIssue = async (issueData, progressCallback) => {
@@ -12,9 +11,7 @@ export const createIssue = async (issueData, progressCallback) => {
         // Check if issueData is already FormData
         if (issueData instanceof FormData) {
             formData = issueData;
-            console.log('Using existing FormData');
         } else {
-            console.log('Creating new FormData from object');
             formData = new FormData();
             
             // Add text fields to form data
@@ -32,13 +29,6 @@ export const createIssue = async (issueData, progressCallback) => {
             }
         }
         
-        // Debug log the contents of the FormData
-        console.log('API URL:', API_URL);
-        console.log('Form data keys:');
-        for (let pair of formData.entries()) {
-            console.log(pair[0], ':', typeof pair[1] === 'object' ? 'File object' : pair[1]);
-        }
-        
         const config = {
             withCredentials: true
             // Important: DO NOT set Content-Type when using FormData
@@ -49,9 +39,7 @@ export const createIssue = async (issueData, progressCallback) => {
             config.onUploadProgress = progressCallback;
         }
         
-        console.log('Sending request to:', `${API_URL}/issues`);
         const response = await axios.post(`${API_URL}/issues`, formData, config);
-        console.log('Response received:', response);
         return response.data;
     } catch (error) {
         console.error('Error details:', error);
@@ -158,10 +146,7 @@ export const deleteIssue = async (issueId, token) => {
 // Create a new issue using direct JSON submission
 export const createIssueJSON = async (issueData) => {
     try {
-        console.log('Submitting issue with direct JSON:', issueData);
-        
         const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
-        console.log('API URL for direct JSON submission:', API_URL);
         
         const response = await axios.post(`${API_URL}/issues`, issueData, {
             headers: {
@@ -170,7 +155,6 @@ export const createIssueJSON = async (issueData) => {
             withCredentials: true
         });
         
-        console.log('Direct JSON submission response:', response.data);
         return response.data;
     } catch (error) {
         console.error('Error in direct JSON submission:', error);
@@ -181,8 +165,6 @@ export const createIssueJSON = async (issueData) => {
 // Update an existing issue
 export const updateIssue = async (issueId, issueData) => {
     try {
-        console.log('Updating issue with data:', issueData);
-        
         const response = await axios.put(`${API_URL}/issues/${issueId}`, issueData, {
             headers: {
                 'Content-Type': 'application/json'
@@ -190,7 +172,6 @@ export const updateIssue = async (issueId, issueData) => {
             withCredentials: true
         });
         
-        console.log('Update issue response:', response.data);
         return response.data;
     } catch (error) {
         console.error('Error updating issue:', error);

@@ -43,23 +43,6 @@ export const signUp = createAsyncThunk(
   "auth/signUp",
   async (userData, { rejectWithValue }) => {
     try {
-      // Log form data for debugging
-      console.log("SignUp thunk - Form data keys:", [...userData.keys()]);
-      console.log("SignUp thunk - Form data values:", 
-        [...userData.entries()].map(entry => `${entry[0]}: ${entry[1] instanceof File ? `File: ${entry[1].name}` : entry[1]}`));
-      
-      // Log specific file data if present
-      const fileEntry = userData.get('proPic') || userData.get('profilePic');
-      if (fileEntry instanceof File) {
-        console.log("File details:", {
-          name: fileEntry.name,
-          size: fileEntry.size,
-          type: fileEntry.type
-        });
-      } else {
-        console.log("No file included in form data");
-      }
-      
       // Add more detailed content-type header
       const response = await axios.post(`${BASE_URL}/signup`, userData, {
         withCredentials: true,
@@ -70,7 +53,6 @@ export const signUp = createAsyncThunk(
         timeout: 30000
       });
       
-      console.log("Signup response:", response.data);
       return response.data;
     } catch (error) {
       console.error("Signup API error:", error);
@@ -95,29 +77,12 @@ export const checkAuth = createAsyncThunk(
   "auth/checkAuth",
   async (_, { rejectWithValue, dispatch }) => {
     try {
-      console.log("Checking authentication status");
-      console.log("Document cookie:", document.cookie); // Debug cookie presence
-      
       const response = await axiosInstance.get(`/auth/check`, {
         withCredentials: true,
         headers: {
           'Accept': 'application/json',
         }
       });
-      
-      console.log("Auth check response:", response.data);
-      
-      // Log detailed user info for debugging
-      if (response.data.user) {
-        console.log("User details from server:", {
-          id: response.data.user._id,
-          email: response.data.user.email,
-          role: response.data.user.role,
-          name: `${response.data.user.fName} ${response.data.user.lName}`
-        });
-      } else {
-        console.warn("Auth check succeeded but no user data was received");
-      }
       
       // If the response indicates an error, reject the thunk
       if (response.data.error === true) {
@@ -127,20 +92,14 @@ export const checkAuth = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Auth check failed:", error);
-      console.log("Error response:", error.response?.data);
-      console.log("Request config:", error.config);
       
       // Handle token expiration or auth issues
       if (error.response?.status === 401) {
-        console.log("Authentication failed due to invalid or expired token");
-        
         // Force user logout when token is expired
         try {
           // Try to clear cookie on server
           await axiosInstance.post(`/auth/logout`, {}, { withCredentials: true })
-            .catch(err => console.log("Logout cleanup attempt failed:", err));
-            
-          console.log("Expired token detected - user automatically logged out");
+            .catch(err => console.error("Logout cleanup attempt failed:", err));
         } catch (logoutErr) {
           console.error("Failed to logout after token expiration:", logoutErr);
         }
@@ -239,7 +198,6 @@ const authSlice = createSlice({
         
         // If token expired, clear all auth state
         if (action.payload?.tokenExpired) {
-          console.log("Auth state cleared due to expired token");
           state.isAuthenticated = false;
           state.user = null;
           state.token = null;

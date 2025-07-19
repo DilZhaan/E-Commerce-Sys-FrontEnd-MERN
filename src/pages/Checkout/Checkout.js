@@ -231,7 +231,7 @@ const Checkout = () => {
       setIsProcessing(true);
       
       // Debug: Log the cart items to find what's invalid
-      console.log('Cart items before filtering:', JSON.stringify(cartItems, null, 2));
+  
       
       // Get valid cart items and collect any that are invalid
       const validItems = [];
@@ -245,8 +245,7 @@ const Checkout = () => {
         }
       });
       
-      console.log('Valid items:', validItems.length);
-      console.log('Invalid items:', invalidItems.length);
+      
       
       // If there are no valid items, show error and return
       if (validItems.length === 0) {
@@ -279,16 +278,14 @@ const Checkout = () => {
         total
       };
       
-      console.log('Submitting order with data:', orderData);
+  
       
       const response = await placeOrder(orderData);
-      console.log('Order response:', response);
+  
       
       // Clear the cart after successful order placement
-      console.log('About to reset cart in both frontend and backend');
-      dispatch(clearCartFromBackend());
-      dispatch(resetCart());
-      console.log('Cart has been reset in both frontend and backend');
+          dispatch(clearCartFromBackend());
+    dispatch(resetCart());
       
       setIsProcessing(false);
       toast.success('Order placed successfully!');

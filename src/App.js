@@ -78,9 +78,7 @@ const Layout = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        console.log("Checking auth status...");
         const result = await dispatch(checkAuth()).unwrap();
-        console.log("Auth check result:", result);
       } catch (error) {
         console.error("Auth check failed:", error);
       }
@@ -91,7 +89,6 @@ const Layout = () => {
       if (!isAuthenticated) {
         checkAuthStatus();
       } else if (isAuthenticated && !user) {
-        console.log("User is authenticated but user object is null, fetching user data...");
         checkAuthStatus();
       }
     }
@@ -99,7 +96,6 @@ const Layout = () => {
     // Set up periodic token verification (every 5 minutes)
     const tokenCheckInterval = setInterval(() => {
       if (isAuthenticated) {
-        console.log("Performing periodic token verification");
         checkAuthStatus();
       }
     }, 5 * 60 * 1000);
@@ -108,24 +104,7 @@ const Layout = () => {
     return () => clearInterval(tokenCheckInterval);
   }, [dispatch, isAuthenticated, loading, user]);
 
-  // Debug logging for auth state changes
-  useEffect(() => {
-    console.log("Auth state updated:", {
-      isAuthenticated,
-      loading,
-      user: user ? {
-        id: user._id,
-        email: user.email,
-        role: user.role,
-        name: `${user.fName || ''} ${user.lName || ''}`
-      } : null
-    });
-    
-    // Log role-specific information if user exists
-    if (user) {
-      console.log(`User has role: ${user.role}. Admin access: ${user.role === 'ADMIN'}`);
-    }
-  }, [isAuthenticated, loading, user]);
+
   
   return (
     <div>
@@ -143,7 +122,6 @@ const Layout = () => {
 // Protected route wrapper component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
-  console.log("ProtectedRoute - Auth state:", { isAuthenticated });
   
   return (
     <AuthGuard>
@@ -306,6 +284,8 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  console.log("Admin Username : admin@dilzhan.com");
+  console.log("Admin Password : admin@1234");
   return (
     <div className="font-bodyFont">
       <RouterProvider router={router} />

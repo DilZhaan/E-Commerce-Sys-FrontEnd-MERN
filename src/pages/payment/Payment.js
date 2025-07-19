@@ -54,7 +54,7 @@ const Payment = () => {
           withCredentials: true
         });
         
-        console.log("Order details response:", response.data);
+
         
         if (response.data && response.data.success) {
           setOrder(response.data.data);
@@ -337,7 +337,7 @@ const Payment = () => {
         
         // Use dedicated card payment endpoint
         try {
-          console.log("Preparing card payment request...");
+    
           // Create card payment request - simplified for testing
           const cardPaymentRequest = {
             orderId: order._id,
@@ -350,8 +350,7 @@ const Payment = () => {
             }
           };
           
-          console.log("Sending card payment request to:", `${process.env.REACT_APP_API_URL}/api/payments/card`);
-          console.log("Request data:", JSON.stringify(cardPaymentRequest, null, 2));
+          
           
           // Process card payment
           const cardResponse = await axios.post(
@@ -365,7 +364,7 @@ const Payment = () => {
             }
           );
           
-          console.log("Card payment response:", cardResponse.data);
+          
           
           if (!cardResponse.data.success) {
             setErrorMessage(cardResponse.data.message || "Payment failed");
@@ -437,7 +436,7 @@ const Payment = () => {
           // Add the file with field name 'bankSlip'
           formData.append('bankSlip', bankSlip);
           
-          console.log("Processing bank transfer with file upload");
+  
           
           // Send the payment with FormData for file upload
           const response = await axios.post(
@@ -451,7 +450,6 @@ const Payment = () => {
             }
           );
           
-          console.log("Payment response:", response.data);
           
           // Show success message
           toast.success("Bank transfer details submitted. Your order will be processed once payment is verified.");
@@ -460,11 +458,9 @@ const Payment = () => {
           return; // Exit early since we've handled the payment
         } else {
           // No bank slip provided, proceed with regular JSON request
-          console.log("Processing bank transfer without file upload");
         }
       }
       
-      console.log("Processing payment with data:", paymentRequestData);
       
       // Default request for non-file uploads
       const response = await axios.post(
@@ -478,7 +474,7 @@ const Payment = () => {
         }
       );
       
-      console.log("Payment response:", response.data);
+
       
       // Show appropriate success message based on payment method
       if (paymentMethod === "bankTransfer") {
@@ -511,7 +507,6 @@ const Payment = () => {
   // After successful payment
   const handlePaymentSuccess = () => {
     // Make sure cart is cleared even if it wasn't cleared during order creation
-    console.log("Payment successful, clearing cart from both frontend and backend");
     dispatch(clearCartFromBackend()); // This will clear backend first
     dispatch(resetCart()); // Also reset locally
     setPaymentSuccess(true);

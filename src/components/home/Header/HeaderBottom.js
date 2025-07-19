@@ -163,7 +163,7 @@ const HeaderBottom = () => {
     return to ? <Link to={to}>{content}</Link> : content;
   };
 
-  console.log("Auth state:", { isAuthenticated, user });
+  
 
   return (
     <div className="w-full bg-gradient-to-r from-gray-50 to-gray-100 relative border-b border-gray-200">

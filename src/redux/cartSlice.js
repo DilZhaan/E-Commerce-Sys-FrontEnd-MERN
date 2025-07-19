@@ -33,9 +33,7 @@ export const clearCartFromBackend = createAsyncThunk(
   'cart/clearFromBackend',
   async (_, { rejectWithValue }) => {
     try {
-      console.log('Clearing cart from backend...');
       const response = await clearCartService();
-      console.log('Backend cart cleared response:', response);
       return response;
     } catch (error) {
       console.error('Error clearing cart from backend:', error);

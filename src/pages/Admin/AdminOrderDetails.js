@@ -34,7 +34,7 @@ const AdminOrderDetails = () => {
               withCredentials: true
             });
             
-            console.log("Payment response:", JSON.stringify(paymentResponse.data, null, 2));
+    
             
             if (paymentResponse.data && paymentResponse.data.success) {
               // Find payment where payment.order equals orderId (handling all possible cases)

@@ -48,13 +48,13 @@ const Cart = () => {
   const handleUpdateQuantity = async (productId, newQuantity) => {
     if (newQuantity < 1) return;
     
-    console.log(`Updating item ${productId} to quantity ${newQuantity}`);
+
     // In some cases, the item._id should be used instead of product._id
     await updateQuantity(productId, newQuantity);
   };
 
   const handleRemoveItem = async (productId) => {
-    console.log(`Removing item ${productId} from cart`);
+
     // In some cases, the item._id should be used instead of product._id
     await removeFromCart(productId);
   };

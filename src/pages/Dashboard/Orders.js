@@ -38,11 +38,10 @@ const Orders = () => {
           response = await getUserOrders();
         }
         
-        console.log('Orders API response:', response);
+
         
         if (response && response.success) {
           setOrders(response.data || []);
-          console.log('Orders loaded:', response.data.length);
         } else {
           toast.error('Failed to load orders');
           setError('Failed to load orders');

@@ -23,7 +23,7 @@ const OrderConfirmation = () => {
           }
         });
         
-        console.log('Order details response:', response.data);
+  
         
         if (response.data && response.data.data) {
           setOrder(response.data.data);

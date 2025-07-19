@@ -24,13 +24,6 @@ const APITester = () => {
       formData.append('whatsappNo', '1234567890');
       
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
-      console.log('Sending FormData test request to:', `${API_URL}/issues`);
-      
-      // Log what's in the FormData
-      console.log('FormData contents:');
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-      }
       
       // Important: DO NOT set Content-Type header when sending FormData
       // The browser will automatically set the correct Content-Type with boundary
@@ -39,7 +32,6 @@ const APITester = () => {
       });
       
       setResponse(result.data);
-      console.log('API test successful:', result.data);
     } catch (err) {
       setError(err);
       console.error('API test failed:', err);
@@ -68,8 +60,6 @@ const APITester = () => {
       };
       
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
-      console.log('Sending JSON test request to:', `${API_URL}/issues`);
-      console.log('JSON data:', jsonData);
       
       const result = await axios.post(`${API_URL}/issues`, jsonData, {
         headers: {
@@ -79,7 +69,6 @@ const APITester = () => {
       });
       
       setResponse(result.data);
-      console.log('API JSON test successful:', result.data);
     } catch (err) {
       setError(err);
       console.error('API JSON test failed:', err);

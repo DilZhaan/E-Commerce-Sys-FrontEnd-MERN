@@ -57,8 +57,7 @@ function IssueDetail() {
       
       // Debug images
       if (response.issue && response.issue.images) {
-        console.log('Issue images:', response.issue.images);
-        console.log('API URL:', process.env.REACT_APP_API_URL || 'http://localhost:4000');
+        
       }
       
       // Mark unread admin messages as read

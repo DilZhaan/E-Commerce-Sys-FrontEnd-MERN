@@ -276,11 +276,8 @@ const ShopProductManagement = () => {
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) {
-      console.log("No files selected");
       return;
     }
-    
-    console.log("Selected files:", files.map(f => `${f.name} (${f.size} bytes, type: ${f.type})`));
     
     // Validate files
     const validFiles = files.filter(file => {
@@ -328,10 +325,6 @@ const ShopProductManagement = () => {
     
     // Add to form data
     setFormData(prevFormData => {
-      console.log("Adding files to formData.images:", 
-        "Current count:", prevFormData.images.length,
-        "Adding count:", fileCopies.length);
-      
       // Implement deduplication mechanism
       const existingFileNames = new Set();
       const uniqueFiles = [];
@@ -344,15 +337,12 @@ const ShopProductManagement = () => {
       // Filter out duplicates
       fileCopies.forEach(file => {
         if (existingFileNames.has(file.name)) {
-          console.log(`Skipping duplicate file: ${file.name}`);
+          // Skip duplicate
         } else {
           existingFileNames.add(file.name);
           uniqueFiles.push(file);
-          console.log(`Adding unique file: ${file.name} (${file.size} bytes)`);
         }
       });
-      
-      console.log(`After deduplication: ${uniqueFiles.length} new unique files will be added`);
       
       return {
         ...prevFormData,
@@ -490,10 +480,7 @@ const ShopProductManagement = () => {
         }
       }
       
-      console.log("Form data before submission:", {
-        ...submissionData,
-        images: submissionData.images ? `${submissionData.images.length} images` : 'no images'
-      });
+
       
       setError(null);
       setLoading(true);
@@ -506,13 +493,7 @@ const ShopProductManagement = () => {
         const hasNewImages = submissionData.images && submissionData.images.length > 0;
         const replaceImages = hasNewImages || (currentExistingImageCount !== existingImageCount);
         
-        console.log("Image update info:", {
-          existingImageCount,
-          currentExistingImageCount,
-          hasNewImages,
-          replaceImages,
-          imageCount: submissionData.images ? submissionData.images.length : 0
-        });
+
         
         const response = await updateShopProduct(selectedProduct._id, submissionData, replaceImages);
         setLoading(false);
